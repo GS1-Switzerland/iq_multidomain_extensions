@@ -12,11 +12,12 @@ class MultidomainExtensionXmlSitemapWriter extends XmlSitemapWriter {
   /**
    * {@inheritdoc}
    */
-  public function writeElement($name, $content = NULL) {
-    // Only print element if it has content.
-    if ($content === NULL ? 0 : count($content)) {
-      parent::writeElement($name, $content);
+  public function writeElement(string $name, array|string|null $content = null): bool {
+    // Only print element if it has non-empty content.
+    if ($content !== null && $content !== '' && $content !== []) {
+      return parent::writeElement($name, $content);
     }
+    return false;
   }
 
 }
